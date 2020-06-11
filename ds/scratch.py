@@ -1,6 +1,6 @@
 '''
 what is the big O notation ?
-it is a way for developers to describe how long an algorithm takes to run. 
+it is a way for developers to describe how long an algorithm takes to run.
 because devs
 needs a way to compare efficiencies solutions  for different problems
 like
@@ -11,14 +11,14 @@ like
 -----------------linked list
 we dont have to store our data[box] in serialized order
 but where ever we found a memory space each piece of data made of like an array
-one index hold the actual value and the other points to the next 
+one index hold the actual value and the other points to the next
 piece of data
 
 prepends for dynamic arr is O(n)
 prepends for linked list O(1)
 
 these appends and prepends are so fast because the nodes of the linked list
-are free to go anywhere in the memory as long as there is an available space 
+are free to go anywhere in the memory as long as there is an available space
 and it is not have to be one next other
 
 @why we store data in array rather than linked list?
@@ -87,7 +87,7 @@ and also a next that references to the next box [head.next]
 and head.next.data => the data of the next box => the head of the box
 
 linked list are often implementing stack LIFO
-Last in first out 
+Last in first out
 
 def outer():
     return middel()
@@ -98,17 +98,63 @@ def middle():
 def inner():
     return something
 
-when we invoke the outer , the engine will push it to stack to be in 
-frame element of the stack . the stack will take a look at the context of 
-outer function okey it return another fun (middle) okey push to the stack 
-now we have 2 function are waiting of the execution context again take a look 
-at  the content of the middle function and also it returns the inner() function 
+when we invoke the outer , the engine will push it to stack to be in
+frame element of the stack . the stack will take a look at the context of
+outer function okey it return another fun (middle) okey push to the stack
+now we have 2 function are waiting of the execution context again take a look
+at  the content of the middle function and also it returns the inner() function
 push the inner() to the top of the stack check its content and then call it
 
-the stack would be like this 
+the stack would be like this
                              inner() last in first out popped off --> 1
                              middle()               popped off --> 2
                   stack =>   outer () first in last out  popped off --> 3
 
 
     '''
+
+
+class Node:
+    def __init__(self, data=None, next_node=None):
+        self.data = data
+        self.next = next_node
+
+    def get_value(self):
+        return self.data
+
+    def get_next(self):
+        return self.next_node
+
+    def set_next(self, new_next):
+        self.next_node = new_next
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def add_to_tail(self, value):
+        node = Node(value)
+        if not self.head:
+            self.head = node
+            self.tail = node
+
+        else:
+            self.tail.set_next(node)
+            self.tail = node
+
+    def remove_head(self):
+        if not self.head:
+            return None
+
+        if not self.head.get_value():
+            head = self.head
+            self.head = None
+            self.tail = None
+
+            return head.get_value()
+
+        value = self.head.get_value()
+        self.head = self.head.get_next()
+        return value
